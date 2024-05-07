@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Price Table</title>
+    </head>
+    <body>
+        <script type="module">
+            import {
+                createIcons,
+                BarChart3,
+            } from "../node_modules/dist/esm/lucide.js";
+
+            createIcons({
+                icons: {
+                    BarChart3,
+                },
+            });
+        </script>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                min-width: 1250px;
+            }
+            .price-table {
+                background-color: transparent;
+                color: white;
+                padding: 4px;
+                row-gap: 16px;
+                font-size: 24px;
+                font-family: "Courier New", Courier, monospace;
+            }
+            .price-table-header {
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.75);
+                border-bottom: 3px solid black;
+            }
+            .price-table-row {
+                background-color: rgba(0, 0, 0, 0.15);
+                border-bottom: 3px solid black;
+            }
+            .price-table-row:nth-child(even) {
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+            .price-table-cell {
+                padding-top: 8px;
+                padding-bottom: 8px;
+                padding-left: 12px;
+                padding-right: 12px;
+                border: rgba(255, 255, 255, 0.75);
+                white-space: nowrap;
+            }
+            .price-table-cell-inner {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+            img {
+                width: 24px;
+                height: 24px;
+            }
+        </style>
+        <table class="price-table">
+            <thead class="price-table-header">
+                <th class="price-table-cell">Name</th>
+                <th class="price-table-cell">Last Price</th>
+                <th class="price-table-cell">Price</th>
+                <th class="price-table-cell">Change</th>
+            </thead>
+            <tbody>
+                {{#each prices}}
+                <tr class="price-table-row">
+                    {{#with this}}
+                    <td class="price-table-cell">{{name}}</td>
+                    <td class="price-table-cell">
+                        <div class="price-table-cell-inner">
+                            {{{lastPrice}}}
+                        </div>
+                    </td>
+                    <td class="price-table-cell">
+                        <div class="price-table-cell-inner">{{{price}}}</div>
+                    </td>
+                    <td class="price-table-cell" style="{{{changeStyle}}}">
+                        <i data-lucide="bar-chart-3"></i>
+                        <div
+                            class="price-table-cell-inner"
+                            style="{{{changeTextStyle}}}"
+                        >
+                            {{{change}}}
+                        </div>
+                    </td>
+                    {{/with}}
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </body>
+</html>

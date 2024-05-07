@@ -1,0 +1,10 @@
+services:
+    bot:
+        build: .
+        image: reich-prices:latest
+        volumes:
+            - bot_data:/app/db
+        env_file: .env
+
+volumes:
+    bot_data:

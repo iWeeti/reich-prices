@@ -1,3 +1,6 @@
 .env
 dist
 node_modules
+*.sqlite
+*.db
+drizzle.config.js
