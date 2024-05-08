@@ -51,13 +51,13 @@ export async function getPriceRows() {
 
 async function loadLockImages() {
     const wlFile = await fs.readFile(
-        path.join(__dirname, "..", "..", "..", "data", "wl.webp")
+        path.join(process.env.LOCKS_PATH ?? "/app/data", "wl.webp")
     );
     const dlFile = await fs.readFile(
-        path.join(__dirname, "..", "..", "..", "data", "dl.webp")
+        path.join(process.env.LOCKS_PATH ?? "/app/data", "dl.webp")
     );
     const bglFile = await fs.readFile(
-        path.join(__dirname, "..", "..", "..", "data", "bgl.webp")
+        path.join(process.env.LOCKS_PATH ?? "/app/data", "bgl.webp")
     );
 
     const wlBase64Image = Buffer.from(wlFile).toString("base64");
