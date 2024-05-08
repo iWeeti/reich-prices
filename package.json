@@ -11,7 +11,8 @@
         "clean": "rm -rf ./dist/*",
         "db:generate": "drizzle-kit generate:sqlite",
         "db:push": "drizzle-kit push:sqlite",
-        "test": "jest"
+        "test": "jest",
+        "postinstall": "node node_modules/puppeteer/install.js"
     },
     "keywords": [],
     "author": "",
