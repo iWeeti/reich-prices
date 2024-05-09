@@ -245,12 +245,18 @@ export default {
                 } catch {
                     await interaction.editReply({
                         content: "Deletion confirmation expired, try again.",
+                        components: [],
+                        embeds: [],
                     });
                     return;
                 }
 
                 if (result.customId !== "delete") {
-                    await interaction.editReply("Deletion canceled.");
+                    await result.update({
+                        content: "Deletion canceled.",
+                        components: [],
+                        embeds: [],
+                    });
                     return;
                 }
 
@@ -271,8 +277,9 @@ export default {
                     )
                     .setColor(Colors.Green);
 
-                await interaction.editReply({
+                await result.update({
                     embeds: [embed],
+                    components: [],
                 });
                 break;
             }
