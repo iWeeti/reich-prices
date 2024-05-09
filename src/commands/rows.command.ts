@@ -186,9 +186,8 @@ export default {
                 });
 
                 if (!rowAdmin) {
-                    await interaction.reply({
+                    await interaction.editReply({
                         content: "You aren't allowed to manage this row.",
-                        ephemeral: true,
                     });
                     return;
                 }
@@ -212,7 +211,7 @@ export default {
                     )
                     .setColor(Colors.Green);
 
-                await interaction.reply({
+                await interaction.editReply({
                     embeds: [embed],
                 });
                 break;
