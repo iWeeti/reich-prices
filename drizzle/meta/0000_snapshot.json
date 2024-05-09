@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "dc5a4f2f-3cf5-459f-adfb-9acbdc2d2b6f",
+  "id": "21e8d782-62d6-48a2-a430-b8d4998b0f71",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "price_row_admin": {
@@ -41,7 +41,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
         "price_row_admin_user_id_user_id_fk": {
@@ -54,7 +54,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -107,7 +107,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -203,7 +203,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },

@@ -38,10 +38,10 @@ export const priceRowsRelations = relations(priceRows, ({ many, one }) => ({
 export const priceRowAdmins = sqliteTable("price_row_admin", {
     id: int("id").primaryKey({ autoIncrement: true }).notNull(),
     priceRowId: int("price_row_id")
-        .references(() => priceRows.id)
+        .references(() => priceRows.id, { onDelete: "cascade" })
         .notNull(),
     userId: text("user_id")
-        .references(() => users.id)
+        .references(() => users.id, { onDelete: "cascade" })
         .notNull(),
 });
 
@@ -67,7 +67,7 @@ export const priceRowItems = sqliteTable(
     {
         id: int("id").primaryKey({ autoIncrement: true }).notNull(),
         priceRowId: int("price_row_id")
-            .references(() => priceRows.id)
+            .references(() => priceRows.id, { onDelete: "cascade" })
             .notNull(),
         itemId: int("item_id").notNull(),
     },
@@ -96,7 +96,7 @@ export const priceRowItemRelations = relations(
 export const prices = sqliteTable("price", {
     id: int("id").primaryKey({ autoIncrement: true }).notNull(),
     priceRowItemId: int("price_row_item_id")
-        .references(() => priceRowItems.id)
+        .references(() => priceRowItems.id, { onDelete: "cascade" })
         .notNull(),
     minCount: int("min_count").notNull(),
     maxCount: int("max_count"),
