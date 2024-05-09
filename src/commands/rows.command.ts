@@ -1,4 +1,15 @@
-import { Colors, EmbedBuilder, SlashCommandBuilder } from "discord.js";
+import {
+    ActionRow,
+    ActionRowBuilder,
+    ButtonBuilder,
+    ButtonInteraction,
+    ButtonStyle,
+    CacheType,
+    Colors,
+    ComponentType,
+    EmbedBuilder,
+    SlashCommandBuilder,
+} from "discord.js";
 import { Command } from "./command";
 import { db } from "../lib/database";
 import {
@@ -192,6 +203,57 @@ export default {
                     return;
                 }
 
+                const item = await getItemById(itemId);
+
+                const confirmButton = new ButtonBuilder()
+                    .setLabel("Delete")
+                    .setStyle(ButtonStyle.Danger)
+                    .setEmoji("🗑️")
+                    .setCustomId("delete");
+                const cancelButton = new ButtonBuilder()
+                    .setLabel("Cancel")
+                    .setStyle(ButtonStyle.Secondary)
+                    .setEmoji("❌")
+                    .setCustomId("cancel");
+                const confirmRow =
+                    new ActionRowBuilder<ButtonBuilder>().addComponents(
+                        confirmButton,
+                        cancelButton
+                    );
+
+                let result: ButtonInteraction<CacheType>;
+                try {
+                    result = await (
+                        await interaction.editReply({
+                            embeds: [
+                                {
+                                    title: "Confirm",
+                                    color: Colors.Green,
+                                    description: `Confirm the deletion of the prices for the item \`${item.name}\` from the row \`${rowAdmin.priceRow.name}\`.`,
+                                    footer: {
+                                        text: "Expires in 30 seconds.",
+                                    },
+                                },
+                            ],
+                            components: [confirmRow],
+                        })
+                    ).awaitMessageComponent({
+                        componentType: ComponentType.Button,
+                        filter: (i) => i.user.id === interaction.user.id,
+                        time: 30_000,
+                    });
+                } catch {
+                    await interaction.editReply({
+                        content: "Deletion confirmation expired, try again.",
+                    });
+                    return;
+                }
+
+                if (result.customId !== "delete") {
+                    await interaction.editReply("Deletion canceled.");
+                    return;
+                }
+
                 const priceRowItem = await db
                     .delete(priceRowItems)
                     .where(
@@ -201,8 +263,6 @@ export default {
                         )
                     )
                     .returning();
-
-                const item = await getItemById(itemId);
 
                 const embed = new EmbedBuilder()
                     .setTitle("Removed Item")
