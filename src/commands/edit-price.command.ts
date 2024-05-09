@@ -204,7 +204,7 @@ export default {
             await interaction.respond(
                 choices.map((choice) => ({
                     name: choice.item.name,
-                    value: choice.item.itemID,
+                    value: choice.item.itemID.toString(),
                 }))
             );
         }
